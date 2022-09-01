@@ -19,10 +19,8 @@ const loadingBox = document.querySelector(".loadingBox");
 const betBtn = document.querySelectorAll(".animalCircleImg");
 // const reduceBtn = document.querySelectorAll(".reduceBtn");
 const myValue = document.querySelectorAll(".myValue");
-console.log(myValue);
 const maxValue = document.querySelectorAll(".maxValue");
 const centerImg = document.querySelectorAll(".img");
-console.log(centerImg);
 const betCoins = document.querySelector(".betCoins");
 const showWinOrLose = document.querySelector(".showWinOrLose");
 const winCount = document.querySelector(".winCount");
@@ -43,6 +41,7 @@ const removeBetBtn = document.querySelector(".removeBetBtn");
 // const winOrLoseText = document.querySelector(".winOrLoseText");
 // const result = document.querySelector(".result");
 const randomAnimal = document.querySelector(".randomAnimal");
+const effectSong = document.querySelector(".effectSound")
 const winningSound = document.querySelector(".winningSound");
 const losingSound = document.querySelector(".losingSound");
 const drawSound = document.querySelector(".drawSound");
@@ -207,7 +206,9 @@ menuBoardPreloader();
     }
 
 let menuController = true;
-
+function playEffect (){
+    effectSong.play();
+}
 function playClockTick(){
     clockTickAudio.play();
 }
@@ -342,13 +343,11 @@ settingbackBtn.addEventListener("click",function(){
 switcher.addEventListener("input", function () {
     playBubbleSound();
     if(switcher.checked) {
-        console.log("off")
         mainBackgroundSound.src = " ";
         soundBtn.style.display = "none";
         soundCloseBtn.style.display = "block";
         // checked = false
     }else {
-        console.log("on")
         // checked = true
         mainBackgroundSound.src = "./assets/audio/mainBackgroundSound.mp3";
         soundBtn.style.display = "block";
@@ -506,7 +505,6 @@ startBtn.addEventListener("click", function(){
             if(betPermission == false){
                 preAmount = +myOwnCoin.firstChild.textContent;
             }
-            console.log("pre amount", preAmount);
 
             betPermission = true;
             if(count > 0 && count <= 5){
@@ -616,7 +614,6 @@ removeBetBtn.addEventListener("click", function(){
 });
 
 function check(x){
-    console.log("i am here");
     animalsBar.style.display = "block";
     if(x == 1 || x == 2 || x == 3){
         myOwnCoin.firstChild.textContent = +myOwnCoin.firstChild.textContent + (+myValue[0].firstChild.textContent * 4);
@@ -686,7 +683,7 @@ function check(x){
         myOwnCoin.firstChild.textContent = +myOwnCoin.firstChild.textContent + (+myValue[8].firstChild.textContent * 24);
         randomAnimal.style.display = "block";
         randomAnimal.src = "./assets/images/square-buttons/bird.png";
-        const animalItem = {srcEnd: "bird.png"};
+        const animalItem = {srcEnd: "birdCircle.png"};
         animalList.unshift(animalItem);
         renderAnimalList(animalsBar,animalList);
     }
@@ -694,7 +691,7 @@ function check(x){
         myOwnCoin.firstChild.textContent = +myOwnCoin.firstChild.textContent + (+myValue[9].firstChild.textContent * 48);
         randomAnimal.style.display = "block";
         randomAnimal.src = "./assets/images/animation-gif/whale.gif";
-        const animalItem = {srcEnd: "whale(left+bottom).png"};
+        const animalItem = {srcEnd: "whale.png"};
         animalList.unshift(animalItem);
         renderAnimalList(animalsBar,animalList);
     }
@@ -707,7 +704,6 @@ function check(x){
     finalAmount = +myOwnCoin.firstChild.textContent;
     showMenuCoin.textContent = +myOwnCoin.firstChild.textContent;
     showCoinInProfile.textContent = +myOwnCoin.firstChild.textContent
-    console.log("finalAmount",finalAmount);
 }
 
 function winOrLose(x,y){
@@ -777,8 +773,7 @@ function  animationCircle(random,speed){
             }
             clearInterval(gameIntervel);
             let y = i - 1;
-            console.log(i);
-            console.log(y);
+           
             check(y);
 
             setTimeout (()=>{
@@ -846,6 +841,6 @@ function  animationCircle(random,speed){
                 playBackgroundSound();
             },12500);
         }
-        playBubbleSound();
+        playEffect();
     }, speed);
  }

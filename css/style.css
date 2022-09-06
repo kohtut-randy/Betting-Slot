@@ -809,7 +809,8 @@ body {
 
 .animate::after {
   content: "";
-  background-image: linear-gradient(to bottom, #ffe600, #ff7b01);
+  /* background-image: linear-gradient(to bottom, #ffe600, #ff7b01); */
+  background-color: aqua;
   background-size: contain;
   opacity: 0.7;
   width: 100%;
@@ -953,15 +954,12 @@ body {
   }
 }
 
-.winOrLose h3,
-.winOrLose h5,
-.winOrLose p,
 .wantToQuit h3,
 .warning h3,
 .outOfCoinWarning h3 {
   font-size: 1.3rem;
   font-weight: 600;
-  background: linear-gradient(90deg, #ffe600, #ff7b01);
+  background: linear-gradient(90deg, red, white);
   text-transform: uppercase;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -979,7 +977,7 @@ body {
   cursor: pointer;
 }
 .wantToQuit .cancleBth {
-  color: greenyellow;
+  color: white;
 }
 .wantToQuit .yesBtn {
   color: rgb(253, 38, 38);

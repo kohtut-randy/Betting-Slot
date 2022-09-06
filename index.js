@@ -563,7 +563,8 @@ startBtn.addEventListener("click", function () {
             warning.style.display = "flex";
           } else {
             gameIntervel = 0;
-            let random = getRandomInt(31);
+            let random = 24;
+            // let random = getRandomInt(31);
             animationCircle(null, 100);
             setTimeout(() => {
               clearInterval(gameIntervel);
@@ -754,7 +755,7 @@ function check(x) {
       +myValue[9].firstChild.textContent * 48;
     randomAnimal.style.display = "block";
     randomAnimal.src = "./assets/images/square-buttons/whale(left+bottom).png";
-    const animalItem = { srcEnd: "whale.png" };
+    const animalItem = { srcEnd: "whale(left+bottom).png" };
     animalList.unshift(animalItem);
     renderAnimalList(animalsBar, animalList);
   }

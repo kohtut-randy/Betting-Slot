@@ -62,6 +62,13 @@ const cancleBth = document.querySelector(".cancleBth");
 const yesBtn = document.querySelector(".yesBtn");
 const menuLoading = document.querySelector(".menuLoading");
 const switcher = document.querySelector("#switcher");
+
+const warning = document.querySelector(".warning");
+const okBtn = document.querySelector(".okBtn");
+const outOfCoinWarning = document.querySelector(".outOfCoinWarning");
+const okBtn2 = document.querySelector(".okBtn2");
+// const outOfCoinAnimation = document.querySelector(".outOfCoinAnimation");
+
 // const winOrLoseDiv = document.querySelector(".winOrLose");
 // const winOrLoseHeader = document.querySelector(".winOrLoseHeader");
 // const winOrLoseText = document.querySelector(".winOrLoseText");
@@ -180,6 +187,27 @@ function menuBoardPreloader() {
 
 menuBoardPreloader();
 
+okBtn.addEventListener("click", function () {
+  playBubbleSound();
+  playBackgroundSound();
+  this.classList.add("zoomoutAnimate");
+  setTimeout(() => {
+    this.classList.remove("zoomoutAnimate");
+    playPermission = true;
+    warning.style.display = "none";
+  }, 100);
+});
+
+okBtn2.addEventListener("click", function () {
+  playBubbleSound();
+  playBackgroundSound();
+  this.classList.add("zoomoutAnimate");
+  setTimeout(() => {
+    this.classList.remove("zoomoutAnimate");
+    playPermission = true;
+    outOfCoinWarning.style.display = "none";
+  }, 100);
+});
 for (let i = 0; i < betBtn.length; i++) {
   betBtn[i].addEventListener("click", function () {
     playCoinDrop();
@@ -501,62 +529,67 @@ startBtn.addEventListener("click", function () {
   } else {
     playPermission = false;
     stopBackgroundSound();
-    playTimeCountdownStart();
-    circle.style.display = "block";
-    if (timerId !== 0) return;
+    if (+myOwnCoin.firstChild.textContent === 0) {
+      outOfCoinWarning.style.display = "flex";
+    } else {
+      playTimeCountdownStart();
+      circle.style.display = "block";
+      if (timerId !== 0) return;
 
-    timerId = setInterval(function () {
-      count--;
-      let s = count;
-      s = s < 10 ? "0" + s : s;
-      countDown.innerHTML = s;
+      timerId = setInterval(function () {
+        count--;
+        let s = count;
+        s = s < 10 ? "0" + s : s;
+        countDown.innerHTML = s;
 
-      if (betPermission == false) {
-        preAmount = +myOwnCoin.firstChild.textContent;
-      }
+        if (betPermission == false) {
+          preAmount = +myOwnCoin.firstChild.textContent;
+        }
 
-      betPermission = true;
-      if (count > 0 && count <= 5) {
-        stopTimeCountdownStart();
-        playClockTick();
-        countDown.style.color = "rgb(253, 38, 38)";
-        ss.style.stroke = "rgb(253, 38, 38)";
-      }
-      if (count === 0) {
-        countDown.innerHTML = "GO";
-        countDown.style.color = "orange";
-      }
-      if (count < 0) {
-        // for(let i = 0; i < betBtn.length; i++){
-        //     myValue[i].firstChild.textContent = 0;
-        // }
-        countingEnd();
-        gameIntervel = 0;
-        let random = getRandomInt(32);
-        animationCircle(null, 100);
-        setTimeout(() => {
-          clearInterval(gameIntervel);
-          gameIntervel = 0;
-          animationCircle(null, 200);
-        }, 3000);
-        setTimeout(() => {
-          clearInterval(gameIntervel);
-          gameIntervel = 0;
-          animationCircle(null, 250);
-        }, 5000);
-        setTimeout(() => {
-          clearInterval(gameIntervel);
-          gameIntervel = 0;
-          animationCircle(null, 300);
-        }, 6000);
-        setTimeout(() => {
-          clearInterval(gameIntervel);
-          gameIntervel = 0;
-          animationCircle(random, 350);
-        }, 7000);
-      }
-      ss.style.strokeDashoffset = 440 - (440 * count) / 30;
-    }, 1000);
+        betPermission = true;
+        if (count > 0 && count <= 5) {
+          stopTimeCountdownStart();
+          playClockTick();
+          countDown.style.color = "rgb(253, 38, 38)";
+          ss.style.stroke = "rgb(253, 38, 38)";
+        }
+        if (count === 0) {
+          countDown.innerHTML = "GO";
+          countDown.style.color = "orange";
+        }
+        if (count < 0) {
+          countingEnd();
+          if (+betCoins.firstChild.textContent === 0) {
+            warning.style.display = "flex";
+          } else {
+            gameIntervel = 0;
+            let random = getRandomInt(31);
+            animationCircle(null, 100);
+            setTimeout(() => {
+              clearInterval(gameIntervel);
+              gameIntervel = 0;
+              animationCircle(null, 200);
+            }, 3000);
+            setTimeout(() => {
+              clearInterval(gameIntervel);
+              gameIntervel = 0;
+              animationCircle(null, 250);
+            }, 5000);
+            setTimeout(() => {
+              clearInterval(gameIntervel);
+              gameIntervel = 0;
+              animationCircle(null, 300);
+            }, 6000);
+            setTimeout(() => {
+              clearInterval(gameIntervel);
+              gameIntervel = 0;
+              animationCircle(random, 350);
+            }, 7000);
+          }
+        }
+        ss.style.strokeDashoffset = 440 - (440 * count) / 30;
+      }, 1000);
+    }
   }
 });
 
@@ -720,7 +753,7 @@ function check(x) {
       +myOwnCoin.firstChild.textContent +
       +myValue[9].firstChild.textContent * 48;
     randomAnimal.style.display = "block";
-    randomAnimal.src = "./assets/images/square-buttons/whale(right side).png";
+    randomAnimal.src = "./assets/images/square-buttons/whale(left+bottom).png";
     const animalItem = { srcEnd: "whale.png" };
     animalList.unshift(animalItem);
     renderAnimalList(animalsBar, animalList);
@@ -871,6 +904,9 @@ function animationCircle(random, speed) {
           playSelectSound();
           centerImg[i - 1].classList.remove("animate");
         }, 1600);
+        if ((y = 31)) {
+          i = 0;
+        }
       }, 500);
 
       setTimeout(() => {

@@ -911,6 +911,38 @@ body {
   animation: win 1s ease-in-out;
   display: none;
 }
+.warning {
+  width: 200px;
+  height: 150px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.442);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  animation: win 1s ease-in-out;
+  display: none;
+}
+.outOfCoinWarning {
+  width: 200px;
+  height: 150px;
+  border-radius: 20px;
+  background: rgba(0, 0, 0, 0.442);
+  /* background-image: url(../assets/images/animation-gif/outOfCoin.gif);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat; */
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  animation: win 1s ease-in-out;
+  display: none;
+}
 
 @keyframes win {
   0% {
@@ -924,7 +956,9 @@ body {
 .winOrLose h3,
 .winOrLose h5,
 .winOrLose p,
-.wantToQuit h3 {
+.wantToQuit h3,
+.warning h3,
+.outOfCoinWarning h3 {
   font-size: 1.3rem;
   font-weight: 600;
   background: linear-gradient(90deg, #ffe600, #ff7b01);
@@ -950,6 +984,28 @@ body {
 .wantToQuit .yesBtn {
   color: rgb(253, 38, 38);
 }
+.warning span {
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+.outOfCoinWarning span {
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+/* .outOfCoinAnimation {
+  z-index: 1;
+  background-image: url(../assets/images/animation-gif/outOfCoin.gif);
+  width: 79%;
+  height: 79%;
+  background-size: 100% 100%;
+  position: absolute;
+  top: 10.5%;
+  left: 10.5%;
+  animation: win 1s ease-in-out;
+  display: none;
+} */
 
 /* .countDown{
     position: absolute;
